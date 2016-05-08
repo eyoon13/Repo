@@ -1,22 +1,7 @@
 <div>
-  <%= month_calendar events: @events do |date, events| %>
-    <a href="#" data-toggle = "modal" data-target="#eventModal" onclick="setEventDate('<%= date %>')">
+  <%= month_calendar do |date| %>
     <%= date.day %>
-    
-    <%events.each do |event| %>
-      <div>
-        <h4> <%=event.name%></h4>
-        <%=event.location%>
-      </div>
-      </a>
-    <% end %>
-  
   <% end %>
-    
 </div>
 
 <!-- add events in the right sidebar-->
-
-<div>
-  <a href="public/events.json"><button type='button'>Export</button></a>
-</div>

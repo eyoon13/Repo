@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
     validates_numericality_of :tweet_count
     validates_numericality_of :follower_count
     validates_presence_of :name
-    has_many :transactions
     has_many :events
+    
+    
+    #stocks
+    has_many :transactions
+    has_many :stocks_following
+    has_one  :balance
 end

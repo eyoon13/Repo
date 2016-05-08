@@ -43,7 +43,6 @@ gem 'open-weather'
 #API for calendar display
 gem "simple_calendar", "~> 2.0"
 gem "chronic", "~> 0.10.2"
-gem 'json', '~> 1.8', '>= 1.8.3'
 
 
 #Library for accessing stocks data
