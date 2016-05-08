@@ -3,15 +3,20 @@
 <!-- header with <StockName> : <StockPrice>-->
 <h1><%= @singleStock.name %> : <%= @singleStock.ask %> </h1>
 
-<!-- buy/sell stock buttons -->
-<div id="transactionButtons">
-  <button id="buyButton">Buy</button>
-  <button id="sellButton">Sell</button> <!-- make clickable only when owned -->
-</div>
+<!-- buy/sell button -->
 
-<!-- graph of the given stock -->
 <div id="stock_graph">
-  <img src="http://chart.finance.yahoo.com/z?s=<%=@singleStock.symbol%>&t=6m&q=l&l=on&z=s&p=m50,m200" >
+<!-- pull in the graph from google finance API 
+    .________________________.
+    |             ^    ___   |
+    |   _/\      / \__/   \__|
+    |--/   \__  /            |
+    |         \/             |
+    |________________________|
+    
+-->
+<img src="http://chart.finance.yahoo.com/z?s=<%=@singleStock.symbol%>&t=6m&q=l&l=on&z=s&p=m50,m200" >
+
 </div>
 
 <!--detailed table -->
@@ -53,13 +58,10 @@
     
 </div>
 
-
-<!--notes on the stock
 <div id="stock_notes">
     <h3>Notes:</h3>
     <p> <%= @singleStock.notes %></p>
 </div>
---> 
 
 <!-- personalized stock notes -->
 <div id="stock_transaction_history">
