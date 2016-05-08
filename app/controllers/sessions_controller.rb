@@ -64,7 +64,7 @@ class SessionsController < ApplicationController
         user.auto_tweet = false
       end
       user.save!
-      redirect_to show_path
+      redirect_to show_path 
     #else
       #redirect_to failure_path
     #end

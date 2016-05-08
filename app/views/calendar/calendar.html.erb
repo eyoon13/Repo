@@ -1,7 +1,18 @@
 <div>
-  <%= month_calendar do |date| %>
+  <%= month_calendar events: @events do |date, events| %>
+    <a href="#" data-toggle = "modal" data-target="#eventModal" onclick="setEventDate('<%= date %>')">
     <%= date.day %>
+    
+    <%events.each do |event| %>
+      <div>
+        <h4> <%=event.name%></h4>
+        <%=event.location%>
+      </div>
+      </a>
+    <% end %>
+  
   <% end %>
+    
 </div>
 
 <!-- add events in the right sidebar-->

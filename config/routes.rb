@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   
   ## -- CALENDAR --##
   get '/calendar', to: 'calendar#calendar', as: 'calendar'
+  post '/new_event', to: 'calendar#new_event', as: 'new_event'
 
   ## -- TWITTER -- ##
   get '/auth/:provider/callback', to: 'sessions#create'
