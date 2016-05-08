@@ -1,0 +1,12 @@
+<html>
+    
+    <% stocks_list.each do |stock| %>
+        ---------------
+        ID: <%= @stock.symbol %>
+        Name: <%= @stock.name %>
+        Current Price: <%= @stock.ask %>
+        Change: <%= @stock.change_and_percent_change %>
+        ---------------
+    <% end %>
+    
+</html>

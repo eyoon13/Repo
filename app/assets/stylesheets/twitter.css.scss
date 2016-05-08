@@ -1,0 +1,24 @@
+/*
+* Style for Twitter related elements
+*/
+
+#tweetbox{
+	border:1px solid #7C8F96;
+	padding: 10px;
+	margin-left: 0px;
+}
+
+#tweetbox .col-xs-11{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#tweetbox .col-xs-1{
+	padding-left: 50px;
+	padding-right: 0px;
+}
+
+#tweetbox img{
+	float: right;
+	width: 50px
+}

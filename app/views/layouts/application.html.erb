@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Twitter Stocks</title>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag  '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag  '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <%=link_to('Twitter Stocks', show_path, html_options={class: "navbar-brand"})%>
+    </div>
+    <ul class="nav navbar-nav">
+      <li>
+        <%=link_to calendar_path do%>
+          <span class="glyphicon glyphicon-calendar"></span> Calendar
+        <% end %>
+      </li>
+      <li>
+        <a href="#"><span class="glyphicon glyphicon-stats"></span> Stocks</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <a href="#" data-toggle = "modal" data-target="#settingsModal">
+          <span class="glyphicon glyphicon-cog"></span>
+        </a>
+      </li>
+      <li class="navbar-right">
+        <%= link_to "Logout", signout_path, method: :delete %>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div id="settingsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Settings</h4>
+      </div>
+      <div class="modal-body">
+        <%= form_tag("update_settings", method: "post", role:"form") do %>
+          <div class="form-group">
+            <%= label_tag(:zipcode, "Zipcode") %>
+            <%= text_field_tag(name="zipcode",value=nil, options = {size: 5, maxlength: 5, class: "form-control"}) %>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+            <label><%= check_box_tag("autotweet") %> Autotweet enabled</label>
+            </div>
+          </div>
+      </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div id="content">
+<%= yield %>
+</div>
+</body>
+</html>

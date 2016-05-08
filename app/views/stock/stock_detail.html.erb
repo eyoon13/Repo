@@ -1,0 +1,80 @@
+
+
+<!-- header with <StockName> : <StockPrice>-->
+<h1><%= @singleStock.name %> : <%= @singleStock.ask %> </h1>
+
+<!-- buy/sell button -->
+
+<div id="stock_graph">
+<!-- pull in the graph from google finance API 
+    .________________________.
+    |             ^    ___   |
+    |   _/\      / \__/   \__|
+    |--/   \__  /            |
+    |         \/             |
+    |________________________|
+    
+-->
+<img src="http://chart.finance.yahoo.com/z?s=<%=@singleStock.symbol%>&t=6m&q=l&l=on&z=s&p=m50,m200" >
+
+</div>
+
+<!--detailed table -->
+<div id="stock_info_table">
+  
+  <table> <!-- price, day high, day low, year high, year low, -->
+    
+    <tr>
+      <td>Current Price</td>
+      <td><%= @singleStock.ask %></td>
+    </tr>
+    
+    <tr>
+      <td>Change</td>
+      <td><%= @singleStock.change_and_percent_change%></td>
+    </tr>
+    
+    <tr>
+      <td>Day High</td>
+      <td><%= @singleStock.high %></td>
+    </tr>
+    
+    <tr>
+      <td>Day Low</td>
+      <td><%= @singleStock.low %></td>
+    </tr>
+    
+    <tr>
+      <td>Year High</td>
+      <td><%= @singleStock.high_52_weeks %></td>
+    </tr>
+    
+    <tr>
+      <td>Year Low</td>
+      <td><%= @singleStock.low_52_weeks %></td>
+    </tr>
+    
+  </table>
+    
+</div>
+
+<div id="stock_notes">
+    <h3>Notes:</h3>
+    <p> <%= @singleStock.notes %></p>
+</div>
+
+<!-- personalized stock notes -->
+<div id="stock_transaction_history">
+    
+    <!--Shares Owned
+    <h4>Shares Owned: </h4>
+    -->
+    
+    <!--Earnings 
+    <h4>Earnings: </h4>
+    -->
+
+    <!--List of transactions
+    <h4>Transactions: </h4>
+    -->
+</div>
