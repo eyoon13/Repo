@@ -1,71 +1,81 @@
 <div class = "container-fluid">
   <div class="row">
     <div class="col-xs-12">
-        <div style="font-size: medium; font-weight: bold; margin-bottom: 0px;">
-          <%= @current["name"] %>
-        </div>
-        <div style="float: left; width: 130px">
+        <div style="float: left; width: 100%;">
           <div style="display: block; clear: left;">
             <div style="float: left;" title="Titel">
-              <img style="border: medium none; width: 45px; height: 45px; background: url(&quot;http://openweathermap.org/img/w/<%= @current["weather"][0]["icon"].to_s %>.png&quot;) repeat scroll 0% 0% transparent;" alt="title" src="http://openweathermap.org/images/transparent.png" height="45" width="45">
+              <img style="border: medium none; width: 45px; height: 45px;  background: url(&quot;http://openweathermap.org/img/w/<%= @current["weather"][0]["icon"].to_s %>.png&quot;) repeat scroll 0% 0% transparent;" alt="title" src="http://openweathermap.org/images/transparent.png" height="45" width="45">
             </div>
             <div style="float: left;">
-              <div style="display: block; clear: left; font-size: medium; font-weight: bold; padding: 0pt 3pt;" title="Current Temperature">
-                <%= @current["main"]["temp"] %>°F
+              <div style="display: block; clear: left; font-size: medium; padding: 0pt 3pt;" title="Current Temperature">
+               <p> <%= @current["name"] %> <%= @current["main"]["temp"] %>°F | Low: <%= @current["main"]["temp_min"] %>°F | High: <%= @current["main"]["temp_max"] %>°F | Clouds: <%= @current["clouds"]["all"] %>% | Humidity: <%= @current["main"]["humidity"] %> | %Wind: <%= @current["wind"]["speed"] %> m/h | Pressure: <%= @current["main"]["pressure"] %>hpa</p>
               </div>
-            <div style="display: block; width: 85px; overflow: visible;"></div>
           </div>
         </div>
-        <div style="display: block; clear: left; font-size: small;">Low: <%= @current["main"]["temp_min"] %>°F</div>
-        <div style="display: block; clear: left; font-size: small;">High: <%= @current["main"]["temp_max"] %>°F</div>
-        <div style="display: block; clear: left; font-size: small;">Clouds: <%= @current["clouds"]["all"] %>%</div>
-        <div style="display: block; clear: left; color: gray; font-size: x-small;">Humidity: <%= @current["main"]["humidity"] %>%</div>
-        <div style="display: block; clear: left; color: gray; font-size: x-small;">Wind: <%= @current["wind"]["speed"] %> m/h</div>
-        <div style="display: block; clear: left; color: gray; font-size: x-small;">Pressure: <%= @current["main"]["pressure"] %>hpa</div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-md-3">
-          <h2>Welcome <%= @user.name%>!</h2>
-          <h3>Tweets: <%=@user.tweet_count %> Followers: <%=@user.follower_count %></h3>
+      <h2>Welcome <%= @user.name%>!</h2>
+      <h3>Tweets: <%=@user.tweet_count %> Followers: <%=@user.follower_count %></h3>
+      
+      <%= form_tag("writetweet", method: "post", role:"form") do %>
+        <div class="form-group"> 
+         <%= text_area_tag(name="tweet",content=nil, options = {size: "60x3", maxlength: 140, placeholder: "What's happening?", class: "form-control"}) %>
+         <br>
+         <%= submit_tag("Tweet") %>
+         </div> 
+      <% end %>
+      
+      <% @tweets.each do |tweet| %>
+        <div id="tweetbox" class="row wordwrap">
+          <div class="col-xs-1">
+           <img src="<%=tweet.user.profile_image_uri_https %>"/>
+          </div>
+          <div class="col-xs-11">
+           <strong><%= tweet.user.name %></strong> @<%= tweet.user.screen_name %>
+           <p><%= link_to tweet.text, "https://www.twitter.com/#{tweet.user.screen_name}/status/#{tweet.id}" %></p>
+          </div>
+        </div>
+      <% end %>
     </div>
       <div class="col-md-9">
-          <h2>Top 5 Stocks</h2>
-            <p1>
-              <div class="panel-group" id="accordion">
-                <% @stocks.each do |t| %>
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#<%= t.symbol %>"><%= t.name %></a>
-                      </h4>
-                    </div>
-                    <div id="<%= t.symbol %>" class="panel-collapse collapse in">
-                      <div class="panel-body">
-                        <b><%= t.name %> (<%= t.symbol %>)</b> <br />
-                        Value: <%= t.ask %> 
-                    
-                        <% red = "ff0000" %>
-                        <% green = "00ff00" %>
-                        <% color = ( (t.change).include? "-") ? red : green %>
-                        (<font color=<%= color %>>  <%= t.change %> </font>) 
-                    
-                        <br>High: <%=t.high %> Low: <%= t.low %> End: <%= t.bid %> <br />
-                      </div>
-                    </div>
+      <h2>Top 5 Stocks</h2>
+        <p1>
+          <div class="panel-group" id="accordion">
+            <% @stocks.each do |t| %>
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#<%= t.symbol %>"><%= t.name %></a>
+                  </h4>
+                </div>
+                <div id="<%= t.symbol %>" class="panel-collapse collapse in">
+                  <div class="panel-body">
+                    <b><%= t.name %> (<%= t.symbol %>)</b> <br />
+                    Value: <%= t.ask %> 
+                
+                    <% red = "ff0000" %>
+                    <% green = "00ff00" %>
+                    <% color = ( (t.change).include? "-") ? red : green %>
+                    (<font color=<%= color %>>  <%= t.change %> </font>) 
+                
+                    <br>High: <%=t.high %> Low: <%= t.low %> End: <%= t.bid %> <br />
                   </div>
-                <% end %> 
+                </div>
               </div>
-  
-            </p1>
-            <p2> <br> <br>
-              <%= form_tag(:action => "stock_detail", :controller=>"stock", method: "post") do %>
-                <%= text_area_tag(name="ticker",content=nil, options = {size: "20x1", maxlength: 25, placeholder: "Enter Ticker Symbol"}) %>
-                <br>
-                <%= submit_tag("Search") %>
-              <% end %> 
-            </p2>
+            <% end %> 
+          </div>
+
+        </p1>
+        <p2> <br> <br>
+          <%= form_tag(:action => "stock_detail", :controller=>"stock", method: "post") do %>
+            <%= text_area_tag(name="ticker",content=nil, options = {size: "20x1", maxlength: 25, placeholder: "Enter Ticker Symbol"}) %>
+            <br>
+            <%= submit_tag("Search") %>
+          <% end %> 
+        </p2>
       </div>
   </div>
 </div>
